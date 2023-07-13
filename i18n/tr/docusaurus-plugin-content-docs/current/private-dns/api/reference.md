@@ -66,9 +66,9 @@ Bir cihazı kaldırır
 
 ##### Parametreler
 
-| Name      | Konumlandığı yer | Açıklama | Gerekli | Şema |
+| İsim      | Konumlandığı yer | Açıklama | Gerekli | Şema |
 | --------- | ---------------- | -------- | ------- | ---- |
-| device_id | path             |          | Evet    | dize |
+| device_id | yol              |          | Evet    | dize |
 
 ##### Yanıtlar
 
@@ -84,9 +84,9 @@ Gets an existing device by ID
 
 ##### Parametreler
 
-| Name          | Konumlandığı yer | Açıklama | Gerekli | Şema |
+| İsim          | Konumlandığı yer | Açıklama | Gerekli | Şema |
 | ------------- | ---------------- | -------- | ------- | ---- |
-| cihaz_kimliği | path             |          | Evet    | dize |
+| cihaz_kimliği | yol              |          | Evet    | dize |
 
 ##### Yanıtlar
 
@@ -102,9 +102,9 @@ Updates an existing device
 
 ##### Parametreler
 
-| Name      | Konumlandığı yer | Açıklama | Gerekli | Şema |
+| İsim      | Konumlandığı yer | Açıklama | Gerekli | Şema |
 | --------- | ---------------- | -------- | ------- | ---- |
-| device_id | path             |          | Evet    | dize |
+| device_id | yol              |          | Evet    | dize |
 
 ##### Yanıtlar
 
@@ -123,7 +123,7 @@ Gets DNS-over-HTTPS .mobileconfig file.
 
 ##### Parametreler
 
-| Name                    | Konumlandığı yer | Açıklama                                                                       | Gerekli | Şema       |
+| İsim                    | Konumlandığı yer | Açıklama                                                                       | Gerekli | Şema       |
 | ----------------------- | ---------------- | ------------------------------------------------------------------------------ | ------- | ---------- |
 | cihaz_kimliği           | yol              |                                                                                | Evet    | dize       |
 | exclude_wifi_networks | sorgu            | List Wi-Fi networks by their SSID in which you want AdGuard DNS to be disabled | Hayır   | [ string ] |
@@ -145,9 +145,9 @@ Gets DNS-over-TLS .mobileconfig file.
 
 ##### Parametreler
 
-| Name                    | Konumlandığı yer | Açıklama                                                                       | Gerekli | Şema       |
+| İsim                    | Konumlandığı yer | Açıklama                                                                       | Gerekli | Şema       |
 | ----------------------- | ---------------- | ------------------------------------------------------------------------------ | ------- | ---------- |
-| cihaz_kimliği           | path             |                                                                                | Evet    | dize       |
+| cihaz_kimliği           | yol              |                                                                                | Evet    | dize       |
 | exclude_wifi_networks | sorgu            | List Wi-Fi networks by their SSID in which you want AdGuard DNS to be disabled | Hayır   | [ string ] |
 | exclude_domain          | sorgu            | List domains that will use default DNS servers instead of AdGuard DNS          | Hayır   | [ string ] |
 
@@ -167,9 +167,9 @@ Cihaz ayarlarını günceller
 
 ##### Parametreler
 
-| Name      | Konumlandığı yer | Açıklama | Gerekli | Şema |
+| İsim      | Konumlandığı yer | Açıklama | Gerekli | Şema |
 | --------- | ---------------- | -------- | ------- | ---- |
-| device_id | path             |          | Evet    | dize |
+| device_id | yol              |          | Evet    | dize |
 
 ##### Yanıtlar
 
@@ -226,9 +226,9 @@ Bir DNS sunucusunu kaldırır. Bu DNS sunucusuna bağlı tüm cihazlar, varsayı
 
 ##### Parametreler
 
-| Name            | Konumlandığı yer | Açıklama | Gerekli | Şema |
+| İsim            | Konumlandığı yer | Açıklama | Gerekli | Şema |
 | --------------- | ---------------- | -------- | ------- | ---- |
-| dns_server_id | path             |          | Evet    | dize |
+| dns_server_id | yol              |          | Evet    | dize |
 
 ##### Yanıtlar
 
@@ -244,9 +244,9 @@ Gets an existing DNS server by ID
 
 ##### Parametreler
 
-| Name            | Konumlandığı yer | Açıklama | Gerekli | Şema |
+| İsim            | Konumlandığı yer | Açıklama | Gerekli | Şema |
 | --------------- | ---------------- | -------- | ------- | ---- |
-| dns_server_id | path             |          | Evet    | dize |
+| dns_server_id | yol              |          | Evet    | dize |
 
 ##### Yanıtlar
 
@@ -262,9 +262,9 @@ Mevcut bir DNS sunucusunu günceller
 
 ##### Parametreler
 
-| Name            | Konumlandığı yer | Açıklama | Gerekli | Şema |
+| İsim            | Konumlandığı yer | Açıklama | Gerekli | Şema |
 | --------------- | ---------------- | -------- | ------- | ---- |
-| dns_server_id | path             |          | Evet    | dize |
+| dns_server_id | yol              |          | Evet    | dize |
 
 ##### Yanıtlar
 
@@ -283,9 +283,9 @@ DNS sunucusu ayarlarını günceller
 
 ##### Parametreler
 
-| Name            | Konumlandığı yer | Açıklama | Gerekli | Şema |
+| İsim            | Konumlandığı yer | Açıklama | Gerekli | Şema |
 | --------------- | ---------------- | -------- | ------- | ---- |
-| dns_server_id | path             |          | Evet    | dize |
+| dns_server_id | yol              |          | Evet    | dize |
 
 ##### Yanıtlar
 
@@ -345,7 +345,7 @@ Sorgu günlüğünü alır
 
 ##### Parametreler
 
-| Name               | Konumlandığı yer | Açıklama                                                                         | Gerekli | Şema                                                |
+| İsim               | Konumlandığı yer | Açıklama                                                                         | Gerekli | Şema                                                |
 | ------------------ | ---------------- | -------------------------------------------------------------------------------- | ------- | --------------------------------------------------- |
 | time_from_millis | sorgu            | Time from in milliseconds (inclusive)                                            | Evet    | uzun                                                |
 | time_to_millis   | sorgu            | Milisaniye cinsinden süre (dahil)                                                | Evet    | uzun                                                |
@@ -373,7 +373,7 @@ Revokes a Refresh Token
 
 ##### Parametreler
 
-| Name          | Konumlandığı yer | Açıklama      | Gerekli | Şema |
+| İsim          | Konumlandığı yer | Açıklama      | Gerekli | Şema |
 | ------------- | ---------------- | ------------- | ------- | ---- |
 | refresh_token | sorgu            | Refresh Token | Evet    | dize |
 
@@ -394,7 +394,7 @@ Kategori istatistiklerini alır
 
 ##### Parametreler
 
-| Name               | Konumlandığı yer | Açıklama                              | Gerekli | Şema       |
+| İsim               | Konumlandığı yer | Açıklama                              | Gerekli | Şema       |
 | ------------------ | ---------------- | ------------------------------------- | ------- | ---------- |
 | time_from_millis | sorgu            | Time from in milliseconds (inclusive) | Evet    | uzun       |
 | time_to_millis   | sorgu            | Milisaniye cinsinden süre (dahil)     | Evet    | uzun       |
@@ -417,7 +417,7 @@ Kategori istatistiklerini alır
 
 ##### Parametreler
 
-| Name               | Konumlandığı yer | Açıklama                              | Gerekli | Şema       |
+| İsim               | Konumlandığı yer | Açıklama                              | Gerekli | Şema       |
 | ------------------ | ---------------- | ------------------------------------- | ------- | ---------- |
 | time_from_millis | sorgu            | Time from in milliseconds (inclusive) | Evet    | uzun       |
 | time_to_millis   | sorgu            | Milisaniye cinsinden süre (dahil)     | Evet    | uzun       |
@@ -440,7 +440,7 @@ Ayrıntılı şirket istatistiklerini alır
 
 ##### Parametreler
 
-| Name               | Konumlandığı yer | Açıklama                              | Gerekli | Şema       |
+| İsim               | Konumlandığı yer | Açıklama                              | Gerekli | Şema       |
 | ------------------ | ---------------- | ------------------------------------- | ------- | ---------- |
 | time_from_millis | sorgu            | Time from in milliseconds (inclusive) | Evet    | uzun       |
 | time_to_millis   | sorgu            | Milisaniye cinsinden süre (dahil)     | Evet    | uzun       |
@@ -464,7 +464,7 @@ Ayrıntılı şirket istatistiklerini alır
 
 ##### Parametreler
 
-| Name               | Konumlandığı yer | Açıklama                              | Gerekli | Şema       |
+| İsim               | Konumlandığı yer | Açıklama                              | Gerekli | Şema       |
 | ------------------ | ---------------- | ------------------------------------- | ------- | ---------- |
 | time_from_millis | sorgu            | Time from in milliseconds (inclusive) | Evet    | uzun       |
 | time_to_millis   | sorgu            | Milisaniye cinsinden süre (dahil)     | Evet    | uzun       |
@@ -487,7 +487,7 @@ Cihaz istatistiklerini alır
 
 ##### Parametreler
 
-| Name               | Konumlandığı yer | Açıklama                              | Gerekli | Şema       |
+| İsim               | Konumlandığı yer | Açıklama                              | Gerekli | Şema       |
 | ------------------ | ---------------- | ------------------------------------- | ------- | ---------- |
 | time_from_millis | sorgu            | Time from in milliseconds (inclusive) | Evet    | uzun       |
 | time_to_millis   | sorgu            | Milisaniye cinsinden süre (dahil)     | Evet    | uzun       |
@@ -510,7 +510,7 @@ Alan adı istatistiklerini alır
 
 ##### Parametreler
 
-| Name               | Konumlandığı yer | Açıklama                              | Gerekli | Şema       |
+| İsim               | Konumlandığı yer | Açıklama                              | Gerekli | Şema       |
 | ------------------ | ---------------- | ------------------------------------- | ------- | ---------- |
 | time_from_millis | sorgu            | Time from in milliseconds (inclusive) | Evet    | uzun       |
 | time_to_millis   | sorgu            | Milisaniye cinsinden süre (dahil)     | Evet    | uzun       |
@@ -533,7 +533,7 @@ Süre istatistiklerini alır
 
 ##### Parametreler
 
-| Name               | Konumlandığı yer | Açıklama                              | Gerekli | Şema       |
+| İsim               | Konumlandığı yer | Açıklama                              | Gerekli | Şema       |
 | ------------------ | ---------------- | ------------------------------------- | ------- | ---------- |
 | time_from_millis | sorgu            | Time from in milliseconds (inclusive) | Evet    | uzun       |
 | time_to_millis   | sorgu            | Milisaniye cinsinden süre (dahil)     | Evet    | uzun       |

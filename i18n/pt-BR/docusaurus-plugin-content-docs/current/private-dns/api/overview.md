@@ -104,7 +104,7 @@ Uma vez que os tokens de acesso e atualização são gerados, as chamadas de API
 
 ## API
 
-### Reference
+### Referência
 
 Consulte a referência de métodos [aqui](private-dns/api/reference.md).
 

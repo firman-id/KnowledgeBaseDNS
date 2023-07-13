@@ -60,186 +60,186 @@ If you're maintaining either a `/etc/hosts`-style blocklist or multiple filterin
 
 ## Adblock 语法样式
 
-This is a subset of the [traditional Adblock-style][adb] syntax which is used by browser ad blockers.
+这是浏览器广告拦截器使用的 [传统 Adblock 样式][adb] 语法的子集。
 
 ```none
      rule = ["@@"] pattern [ "$" modifiers ]
 modifiers = [modifier0, modifier1[, ...[, modifierN]]]
 ```
 
-* `pattern`: the hostname mask. Every hostname is matched against this mask. The pattern can also contain special characters, which are described below.
+* `pattern`：主机名掩码。 每个主机名都与此掩码匹配。 该模式还可以包含特殊字符，如下所述。
 
-* `@@`: the marker that is used in the exception rules. Start your rule with this marker if you want to turn off filtering for the matching hostnames.
+* `@@`: 用于例外的标记规则。 如果用户想取消匹配主机名的过滤，请在规则开头添加此标记。
 
-* `modifiers`: parameters that clarify the rule. They may limit the scope of the rule or even completely change the way it works.
+* `modifiers`：阐明规则参数。 规则参数有可能会限制规则的范围，甚至完全改变它们的工作方式。
 
-### Special Characters
+### 特殊字符
 
-* `*`: the wildcard character. It is used to represent any set of characters. This can also be an empty string or a string of any length.
+* `*`: 通配符字符。 它用于表示任何字符集。 这也可以是一个空的字符串或者是任意长度的字符串。
 
-* `||`: matches the beginning of a hostname, including any subdomain. For instance, `||example.org` matches `example.org` and `test.example.org` but not `testexample.org`.
+* `||`：匹配主机名的开头，包括任何子域名。 例如，`||example.org` 匹配 `example.org` 和 `test.example.org`，但不匹配 `testexample.org`。
 
-* `^`: the separator character. Unlike browser ad blocking, there's nothing to separate in a hostname, so the only purpose of this character is to mark the end of the hostname.
+* `^`：分隔符字符。 与浏览器广告拦截不同，主机名中没有什么可以分隔的，因此该字符的唯一目的是标记主机名的结尾。
 
-* `|`: a pointer to the beginning or the end of the hostname. The value depends on the character placement in the mask. For example, the rule `ample.org|` corresponds to `example.org` but not to `example.org.com`. `|example` corresponds to `example.org` but not to `test.example`.
+* `|`：指向主机名开头或结尾的指针。 该值取决于掩码中的字符位置。 例如，规则 `ample.org|` 对应于 `example.org` 但不对应于 `example.org.com`。 `|example` 对应于 `example.org` 但不对应于 `test.example`。
 
-### Regular Expressions
+### 正则表达式
 
-If you want even more flexibility in making rules, you can use [regular expressions][regexp] instead of the default simplified matching syntax. If you want to use a regular expression, the pattern has to look like this:
+如果用户希望更加灵活地制定规则，可以使用[正则表达式][regexp]代替默认的简易匹配语法。 如果用户要使用正则表达式，则必须使用如下格式：
 
 ```none
 pattern = "/" regexp "/"
 ```
 
-**Examples:**
+**例如：**
 
-* `/example.*/` will block hosts matching the `example.*` regexp.
+* `/example.*/` 将拦截与 `example.*` 正则表达式匹配的主机。
 
-* `@@/example.*/$important` will unblock hosts matching the `example.*` regexp. Note that this rule also implies the `important` modifier.
+* `@@/example.*/$important` 将取消拦截和匹配 `example.*` 的正则表达式。 请注意，此规则也包含 `important` 修饰符。
 
-### Comments
+### 注释：
 
-Any line that starts with an exclamation mark or a hash sign is a comment and it will be ignored by the filtering engine. Comments are usually placed above rules and used to describe what a rule does.
+任何以感叹号或井号开头的行都是注释，过滤引擎将忽略它。 注释通常放在规则之上，用于描述规则。
 
-**Example:**
+**例如：**
 
 ```none
-! This is a comment.
-# This is also a comment.
+! 这是一条注释
+# 这也是一条注释
 ```
 
-### Rule Modifiers
+### 规则修饰符
 
-You can change the behavior of a rule by adding modifiers. Modifiers must be located at the end of the rule after the `$` character and be separated by commas.
+用户可以添加修饰符来更改规则的行为。 修饰符必须位于规则末尾的 `$` 字符之后，并用逗号分隔。
 
-**Examples:**
+**例如：**
 
 * ```none ||example.org^$important
    ```
 
-  `||example.org^` is the matching pattern. `$` is the delimiter, which signals that the rest of the rule are modifiers. `important` is the modifier.
+  `||example.org^` 是匹配模式。 `$` 是分隔符，表示规则的其余部分是修饰符。 `important` 是修饰符。
 
-* You may want to use multiple modifiers in a rule. In that case, separate them by commas:
+* 用户可能希望在一个规则中使用多个修饰符。 在这种情况下，用逗号分隔它们：
 
   ```none
   ||example.org^$client=127.0.0.1,dnstype=A
   ```
 
-  `||example.org^` is the matching pattern. `$` is the delimiter, which signals that the rest of the rule are modifiers. `client=127.0.0.1` is the [`client`](#client) modifier with its value, `127.0.0.1`, is the delimiter. And finally, `dnstype=A` is the [`dnstype`](#dnstype) modifier with its value, `A`.
+  `||example.org^` 是匹配模式。 `$` 是分隔符，表明规则的其余部分是修饰符。 `client=127.0.0.1` 是 [`client`](#client) 修饰符，其值为 `127.0.0.1`，是分隔符。 最后， `dnstype=A` 是 [`dnstype`](#dnstype) 修饰符，其值为 `A`。
 
-**NOTE:** If a rule contains a modifier not listed in this document, the whole rule **must be ignored**. This way we avoid false-positives when people are trying to use unmodified browser ad blockers' filter lists like EasyList or EasyPrivacy.
+**注意：** 如果规则包含本文档中未列出的修饰符，整个规则**将被忽略**。 通过这种方式，当人们尝试使用未经修改的浏览器广告拦截器的过滤器列表（如 EasyList 或 EasyPrivacy）时，我们可以避免误报。
 
-#### `client`
+#### `客户端`
 
-The `client` modifier allows specifying clients this rule is applied to. There are two main ways to identify a client:
+`client` 修饰符允许指定应用此规则的客户端。 识别客户端的主要方法有两种：
 
-* By their IP address or CIDR prefix. This way works for all kinds of clients.
+* 通过其 IP 地址或 CIDR 前缀。 这种方式适用于所有类型的客户端。
 
-* By their name. This way only works for persistent clients (in AdGuard Home) and devices (in Private AdGuard DNS), which you have manually added.
+* 通过名称。 这种方式仅适用于用户手动添加的持久性客户端（在 AdGuard Home 中）和设备（在私人 AdGuard DNS 中）。
 
-  **NOTE:** In AdGuard Home, ClientIDs are not currently supported, only names are. If you have added a client with the name “My Client” and ClientID `my-client` spell your modifier as `$client='My Client'` as opposed to `$client=my-client`.
+  **注意：** 在 AdGuard Home 中，目前不支持 ClientID，仅支持名称。 如果用户添加了一个客户端，名称为 "My Client"，ClientID 为 `my-client` ，将修饰符拼成 `$client='My Client'` ，而不是 `$client=my-client`。
 
-The syntax is:
+语法为：
 
 ```none
 $client=value1|value2|...
 ```
 
-You can also exclude clients by adding a `~` character before the value. In this case, the rule is not be applied to this client's DNS requests.
+用户还可以通过在值前添加 `~` 字符来排除客户端。 在这种情况下，该规则不会应用于此客户端的 DNS 请求。
 
 ```none
 $client=~value1
 ```
 
-Client names usually contain spaces or other special characters, which is why you should enclose the name in quotes. Both single and double ASCII quotes are supported. Use the backslash (`\`) to escape quotes (`"` and `'`), commas (`,`), and pipes (`|`).
+客户端名称通常包含空格或其他特殊字符，这也是用户应该将名称括在引号中的原因。 单、双 ASCII 引号都可以。 使用反斜杠 (`\`) 来转义引号 (`"` 和 `'`) ，逗号 (`,`) 和竖线 (`|`) 。
 
-**NOTE:** When excluding a client, you **must** place `~` outside the quotes.
+**注意：** 排除客户端时，用户**必须**将 `~` 放在引号外。
 
-**Examples:**
+**例如：**
 
-* `@@||*^$client=127.0.0.1`: unblock everything for localhost.
+* `@@||*^$client=127.0.0.1`: 取消拦截本地主机的所有内容。
 
-* `||example.org^$client='Frank\'s laptop'`: block `example.org` for the client named `Frank's laptop` only. Note that quote (`'`) in the name must be escaped.
+* `||example.org^$client='Frank\'s laptop'`：仅对名为 `Frank's laptop` 的客户端拦截`example.org`。 请注意，名称中的引号 (`'`) 必须转义。
 
-* `||example.org^$client=~'Mary\'s\, John\'s\, and Boris\'s laptops'`: block `example.org` for everyone except for the client named `Mary's, John's, and Boris's laptops`. Note that comma (`,`) must be escaped as well.
+* `||example.org^$client=~'Mary\'s\, John\'s\, and Boris\'s laptops'`: 除了名为 `Mary's, John's, and Boris's laptops`的客户端，为其他所有人拦截 `example.org` 。 请注意，逗号 (`,`) 也必须转义。
 
-* `||example.org^$client=~Mom|~Dad|Kids`: block `example.org` for `Kids`, but not for `Mom` and `Dad`. This example demonstrates how to specify multiple clients in one rule.
+* `||example.org^$client=~Mom|~Dad|Kids`：只对 `Kids` 拦截 `example.org` ，但不对 `Mom` 和 `Dad` 拦截它。 此示例演示如何在一个规则中指定多个客户端。
 
-* `||example.org^$client=192.168.0.0/24`: block `example.org` for all clients with IP addresses in the range from `192.168.0.0` to `192.168.0.255`.
+* `||example.org^$client=192.168.0.0/24`：为 IP 地址在 `192.168.0.0` 到 `192.168.0.255` 范围内的所有客户端拦截 `example.org`。
 
 #### `denyallow`
 
-You can use the `denyallow` modifier to exclude domains from the blocking rule. To add multiple domains to one rule, use the `|` character as a separator.
+您可以使用 `denyallow` 修饰符从拦截规则中排除域。 若要将多个域添加到一个规则，请使用 `|` 字符作为分隔符。
 
-The syntax is:
+语法为：
 
 ```none
 $denyallow=domain1|domain2|...
 ```
 
-This modifier allows avoiding creating unnecessary exception rules when our blocking rule covers too many domains. You may want to block everything except for a couple of TLD domains. You could use the standard approach, i.e. rules like this:
+当屏蔽规则覆盖了太多的域名时，该修饰符可避免创建不必要的额外规则。 您可能希望拦截除几个 TLD 域之外的所有内容。 用户可以使用标准方法，即以下规则：
 
 ```none
-! Block everything.
+! 屏蔽一切。
 /.*/
 
-! Unblock a couple of TLDs.
+! 取消对一些 TLD 的屏蔽。
 @@||com^
 @@||net^
 ```
 
-The problem with this approach is that this way you will also unblock tracking domains that are located on those TLDs (i.e. `google-analytics.com`). Here's how to solve this with `denyallow`:
+这种方法的问题在于，通过这种方式，用户也会取消拦截位于这些 TLD 上的跟踪域名（即 `google-analytics.com`）。 下面是用 `denyallow` 来解决此问题的方法:
 
 ```none
 *$denyallow=com|net
 ```
 
-**Examples:**
+**例如：**
 
-* `*$denyallow=com|net`: block everything except for `*.com` and `*.net`.
+* `*$denyallow=com|net`: 除了 `*.com` 和 `*.net` 以外拦截所有内容。
 
-* `@@*$denyallow=com|net`: unblock everything except for `*.com` and `*.net`.
+* `@@*$denyallow=com|net`：除了 `*.com` 和 `*.net` 以外取消拦截所有内容
 
-* `||example.org^$denyallow=sub.example.org`. block `example.org` and `*.example.org` but don't block `sub.example.org`.
+* `||example.org^$denyallow=sub.example.org`。 拦截 `example.org` 和 `*.example.org` ，但不拦截 `sub.example.org`。
 
 #### `dnstype`
 
-The `dnstype` modifier allows specifying DNS request or response type on which this rule will be triggered.
+`dnstype` 修饰符允许指定将触发此规则的 DNS 请求或响应类型。
 
-The syntax is:
+语法为：
 
 ```none
 $dnstype=value1|value2|...
 $dnstype=~value1|~value2|~...
 ```
 
-The names of the types are case-insensitive, but are validated against a set of actual DNS resource record (RR) types.
+类型的名称不区分大小写，但会根据一组实际的 DNS 资源记录（RR）类型进行验证。
 
-Do not combine exclusion rules with inclusion ones. This:
+不要将排除规则与包含规则结合使用。 例如：
 
 ```none
 $dnstype=~value1|value2
 ```
 
-is equivalent to this:
+相当于：
 
 ```none
 $dnstype=value2
 ```
 
-**Examples:**
+**例如：**
 
-* `||example.org^$dnstype=AAAA`: block DNS queries for the IPv6 addresses of `example.org`.
+* `||example.org^$dnstype= AAAA`：拦截对 `example.org`的 IPv6 地址的 DNS 查询。
 
-* `||example.org^$dnstype=~A|~CNAME`: only allow `A` and `CNAME` DNS queries for `example.org`, block out the rest.
+* `||example.org^$dnstype=~A|~CNAME`：只允许 `A` 和 `CNAME` 对 `example.org` 进行 DNS 查询 ，拦截其余部分。
 
-**NOTE:** Before version **v0.108.0,** AdGuard Home would use the type of the request to filter the response records, as opposed to the type of the response record itself.  That caused issues, since that meant that you could not write rules that would allow certain `CNAME` records in responses in `A` and `AAAA` requests. In **v0.108.0** that behaviour was changed, so now this:
+**注意：** 在 **v0.108.0 版本之前**，AdGuard Home 会使用请求的类型来过滤响应记录，而不是响应记录本身的类型。  这造成了一些问题，因为这意味着用户不能编写规则，允许在 `A` 和 `AAAA` 请求的响应中出现某些 `CNAME` 记录。 在 **v0.108.0** 版本中，该行为已更改，因此现在如下所示：
 
 ```none
 ||canon.example.com^$dnstype=~CNAME
 ```
 
-allows you to avoid filtering of the following response:
+允许用户避免过滤以下响应：
 
 ```none
 ANSWERS:
@@ -253,11 +253,11 @@ ANSWERS:
 
 #### `dnsrewrite`
 
-The `dnsrewrite` response modifier allows replacing the content of the response to the DNS request for the matching hosts. Note that this modifier in AdGuard Home works in all rules, but in Private AdGuard DNS — only in custom ones.
+`dnsrewrite` 响应修饰符允许替换匹配主机的 DNS 请求的响应内容。 请注意，AdGuard Home 中的这个修饰符对所有规则都有效，但在私人 AdGuard DNS 中，只对自定义规则有效。
 
-**Rules with the `dnsrewrite` response modifier have higher priority than other rules in AdGuard Home.**
+**具有 `dnsrewrite` 响应修饰符的规则比 AdGuard Home 中的其他规则具有更高的优先级。**
 
-The shorthand syntax is:
+简写语法是：
 
 ```none
 $dnsrewrite=1.2.3.4
@@ -357,7 +357,7 @@ Exception rules remove one or all rules:
 
 The `important` modifier applied to a rule increases its priority over any other rule without the modifier. Even over basic exception rules.
 
-**Examples:**
+**例如：**
 
 * In this example:
 
@@ -381,7 +381,7 @@ The `important` modifier applied to a rule increases its priority over any other
 
 The rules with the `badfilter` modifier disable other basic rules to which they refer. It means that the text of the disabled rule should match the text of the `badfilter` rule (without the `badfilter` modifier).
 
-**Examples:**
+**例如：**
 
 * `||example.com$badfilter` disables `||example.com`.
 
@@ -395,7 +395,7 @@ The rules with the `badfilter` modifier disable other basic rules to which they 
 
 It allows to block domains only for specific types of DNS client tags. You can assign tags to clients in the AdGuard Home UI. In the future, we plan to assign tags automatically by analyzing the behavior of each client.
 
-The syntax is:
+语法为：
 
 ```none
 $ctag=value1|value2|...
@@ -409,7 +409,7 @@ $ctag=~value1|~value2|...
 
 If one of client's tags matches the exclusion `ctag` values, this rule doesn't apply to the client.
 
-**Examples:**
+**例如：**
 
 * `||example.org^$ctag=device_pc|device_phone`: block `example.org` for clients tagged as `device_pc` or `device_phone`.
 
@@ -460,7 +460,7 @@ Fields of the entries are separated by any number of space or tab characters. Te
 
 Hostnames may contain only alphanumeric characters, hyphen-minus signs (`-`), and periods (`.`). They must begin with an alphabetic character and end with an alphanumeric character. Optional aliases provide for name changes, alternate spellings, shorter hostnames, or generic hostnames (for example, `localhost`).
 
-**Example:**
+**例如：**
 
 ```none
 # This is a comment
@@ -476,7 +476,7 @@ In AdGuard Home, the IP addresses are used to respond to DNS queries for these d
 
 A simple list of domain names, one name per line.
 
-**Example:**
+**例如：**
 
 ```none
 # This is a comment

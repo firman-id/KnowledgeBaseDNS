@@ -91,7 +91,7 @@ If you want even more flexibility in making rules, you can use [regular expressi
 pattern = "/" regexp "/"
 ```
 
-**Examples:**
+**Exemples :**
 
 * `/example.*/` will block hosts matching the `example.*` regexp.
 
@@ -112,7 +112,7 @@ Any line that starts with an exclamation mark or a hash sign is a comment and it
 
 You can change the behavior of a rule by adding modifiers. Modifiers must be located at the end of the rule after the `$` character and be separated by commas.
 
-**Examples:**
+**Exemples :**
 
 * ```none ||example.org^$important
    ```
@@ -155,7 +155,7 @@ Client names usually contain spaces or other special characters, which is why yo
 
 **NOTE:** When excluding a client, you **must** place `~` outside the quotes.
 
-**Examples:**
+**Exemples :**
 
 * `@@||*^$client=127.0.0.1`: unblock everything for localhost.
 
@@ -194,7 +194,7 @@ The problem with this approach is that this way you will also unblock tracking d
 *$denyallow=com|net
 ```
 
-**Examples:**
+**Exemples :**
 
 * `*$denyallow=com|net`: block everything except for `*.com` and `*.net`.
 
@@ -227,7 +227,7 @@ is equivalent to this:
 $dnstype=value2
 ```
 
-**Examples:**
+**Exemples :**
 
 * `||example.org^$dnstype=AAAA`: block DNS queries for the IPv6 addresses of `example.org`.
 
@@ -357,7 +357,7 @@ Exception rules remove one or all rules:
 
 The `important` modifier applied to a rule increases its priority over any other rule without the modifier. Even over basic exception rules.
 
-**Examples:**
+**Exemples :**
 
 * In this example:
 
@@ -381,7 +381,7 @@ The `important` modifier applied to a rule increases its priority over any other
 
 The rules with the `badfilter` modifier disable other basic rules to which they refer. It means that the text of the disabled rule should match the text of the `badfilter` rule (without the `badfilter` modifier).
 
-**Examples:**
+**Exemples :**
 
 * `||example.com$badfilter` disables `||example.com`.
 
@@ -409,7 +409,7 @@ $ctag=~value1|~value2|...
 
 If one of client's tags matches the exclusion `ctag` values, this rule doesn't apply to the client.
 
-**Examples:**
+**Exemples :**
 
 * `||example.org^$ctag=device_pc|device_phone`: block `example.org` for clients tagged as `device_pc` or `device_phone`.
 
