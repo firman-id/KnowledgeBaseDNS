@@ -48,6 +48,8 @@ Here is a simple comparison of features available in Public AdGuard DNS and Priv
 * iOS
 * Windows
 * Mac
+* Chrome Os
+* FreeBSD
 * Linux
 * Routers
 * Gaming consoles
